@@ -1,5 +1,5 @@
 
-#include "TreeNode.h"
+/*#include "TreeNode.h"
 using namespace std;
 class BST { //implement the 3 ways of that tree, pre, post, and in order (code written in notes)
 	public:
@@ -15,4 +15,4 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		bool isEmpty();
 	private:
 		TreeNode *root;
-};
+};*/

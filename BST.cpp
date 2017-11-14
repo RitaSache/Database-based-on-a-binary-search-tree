@@ -2,7 +2,7 @@
 #include "BST.h"
 
 using namespace std;
-
+/*
 BST::BST(){
 	root = NULL;
 }
@@ -180,4 +180,4 @@ TreeNode* BST::getSuccessor(TreeNode *d){
 		successor->right = d->right;
 	}
 	return successor;
-}
+}*/
