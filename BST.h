@@ -7,11 +7,11 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		BST();
 		virtual ~BST();
 		void insert(int value);
-		bool contains(T value); //like find
-		bool deleteNode(T value);
-		T* getSuccessor(T *d); //for deleting a node
-		T* getMin();
-		T* getMax();
+		bool contains(int value); //like find
+		bool deleteNode(int value);
+		TreeNode* getSuccessor(TreeNode *d); //for deleting a node
+		TreeNode* getMin();
+		TreeNode* getMax();
 		void printTree();
 		bool isEmpty();
 	private:
@@ -28,7 +28,7 @@ BST<T>::~BST(){
 	//iterate and delete
 }
 template <class T>
-T* BST<T>::getMin(){ //curr to keep track where we are as we navigate through tree
+TreeNode* BST<T>::getMin(){ //curr to keep track where we are as we navigate through tree
 	T *current = root; //start at root
 	if(root == NULL) {
 		return NULL;
@@ -39,7 +39,7 @@ T* BST<T>::getMin(){ //curr to keep track where we are as we navigate through tr
 	return current; //node with smallest value or current -> key or value or data
 }
 template <class T>
-T* BST<T>::getMax(){
+TreeNode* BST<T>::getMax(){
 	T *current = root; //start at root
 	if(root == NULL) {
 		return NULL;
@@ -80,12 +80,12 @@ void BST<T>::insert(int value){
 	}
 }
 template <class T>
-bool BST<T>::contains(T value){
+bool BST<T>::contains(int value){
 	if(root == NULL){
 		return false;
 	}
 	else{
-		T *current = root;
+		TreeNode *current = root;
 		while(current->key != value){ //while this key doesnt equal value we will keep iterating
 			if(value < current -> key){
 				current = current -> left;
@@ -101,15 +101,15 @@ bool BST<T>::contains(T value){
 	return true;
 }
 template <class T>
-bool BST<T>::deleteNode(T k){
+bool BST<T>::deleteNode(int k){
 	//didnt go over it, will be around 3 pages long. read about it in the book
 	//check if it's a leaf, has one child, or two children
 	//getSuccessor() is for finding the replacement of a deleted node with two children. cant just replace with a random node cause it's ruin the tree
 	if(root == NULL) {//tree is empty
 		return false;
 	}
-	T *current = root;
-	T *parent = root; //so we can update node's right and left neighbor accordingly
+	TreeNode *current = root;
+	TreeNode *parent = root; //so we can update node's right and left neighbor accordingly
 	bool isLeft = true;
 
 	while(current->key != k)
@@ -165,7 +165,7 @@ bool BST<T>::deleteNode(T k){
 		}
 	}
 	else{//a node has two children
-		T *successor = getSuccessor(current);
+		TreeNode *successor = getSuccessor(current);
 
 		if(current == root){
 			root =successor;
@@ -181,10 +181,10 @@ bool BST<T>::deleteNode(T k){
 	return true;
 }
 template <class T>
-T* BST<T>::getSuccessor(T *d){
-	T *sp = d;
-	T *successor =d;
-	T *current = d->right;
+TreeNode* BST<T>::getSuccessor(TreeNode *d){
+	TreeNode *sp = d;
+	TreeNode *successor =d;
+	TreeNode *current = d->right;
 
 	while(current !=NULL){
 		sp= successor;
