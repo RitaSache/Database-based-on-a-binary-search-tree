@@ -9,4 +9,6 @@ class Faculty{
 		string department;
 		int size;
 		int *advisees;
-}
+		Faculty(int id, string Name, string Level, string Department);
+		~Faculty();
+};

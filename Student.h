@@ -9,4 +9,6 @@ class Student{
 		string major;
 		double GPA;
 		int advisor;
+		Student(int id, string Name, string Level, string Major, double gpa, int Advisor);
+		~Student();
 };
