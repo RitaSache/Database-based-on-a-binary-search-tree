@@ -12,9 +12,8 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		TreeNode* getSuccessor(TreeNode *d); //for deleting a node
 		TreeNode* getMin();
 		TreeNode* getMax();
-		void printTree();
+		void printTree(TreeNode *n);
 		bool isEmpty();
-	private:
 		TreeNode *root;
 };
 
@@ -197,3 +196,15 @@ TreeNode* BST<T>::getSuccessor(TreeNode *d){
 	}
 	return successor;
 }
+
+template <class T>
+void BST<T>::printTree(TreeNode *n){
+	if(n!= NULL){
+		printTree(n->left);
+		cout << n->key << endl;
+		printTree(n->right);
+	}
+}
+
+
+

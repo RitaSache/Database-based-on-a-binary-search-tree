@@ -9,6 +9,7 @@ int main() {
 	BST<Student>* masterStudent = new BST <Student>();
 	Student *clam = new Student(1, "Clam", "Junior", "Business", 3.3, 2);
 	masterStudent->insert(clam->ID);
+	masterStudent->printTree(masterStudent->root);
 
 	return 0;
 }
