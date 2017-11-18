@@ -1,19 +1,16 @@
-#include <iostream>
+/*#include <iostream>
 #include "BST.h"
 
 using namespace std;
-/*
 BST::BST(){
 	root = NULL;
 }
-
 BST::~BST(){
 	//research it
 	//iterate and delete
 }
-
-TreeNode* BST::getMin(){ //curr to keep track where we are as we navigate through tree
-	TreeNode *current = root; //start at root
+TreeNode<T>* BST::getMin(){ //curr to keep track where we are as we navigate through tree
+	TreeNode<T> *current = root; //start at root
 	if(root == NULL) {
 		return NULL;
 	}
@@ -22,9 +19,8 @@ TreeNode* BST::getMin(){ //curr to keep track where we are as we navigate throug
 	}
 	return current; //node with smallest value or current -> key or value or data
 }
-
-TreeNode* BST::getMax(){
-	TreeNode *current = root; //start at root
+TreeNode<T>* BST::getMax(){
+	TreeNode<T> *current = root; //start at root
 	if(root == NULL) {
 		return NULL;
 	}
@@ -33,15 +29,14 @@ TreeNode* BST::getMax(){
 	}
 	return current;
 }
-
 void BST::insert(int value){
-	TreeNode *newNode = new TreeNode(value);
+	TreeNode<T> *newNode = new TreeNode<T>(value);
 	if (root == NULL) {//if tree is empty
 		root = newNode;
 	}
 	else{ //not empty, find where will new node go. need placeholders
-		TreeNode *current = root;
-		TreeNode *parent; //parent is one node up. empty pointer to node
+		TreeNode<T> *current = root;
+		TreeNode<T> *parent; //parent is one node up. empty pointer to node
 		while(true){
 			parent = current; //update current at every iteration and it will be one node down
 			if(value < current->key) {//test if smaller or larger
@@ -63,13 +58,12 @@ void BST::insert(int value){
 		}
 	}
 }
-
 bool BST::contains(int value){
 	if(root == NULL){
 		return false;
 	}
 	else{
-		TreeNode *current = root;
+		TreeNode<T> *current = root;
 		while(current->key != value){ //while this key doesnt equal value we will keep iterating
 			if(value < current -> key){
 				current = current -> left;
@@ -84,7 +78,6 @@ bool BST::contains(int value){
 	}
 	return true;
 }
-
 bool BST::deleteNode(int k){
 	//didnt go over it, will be around 3 pages long. read about it in the book
 	//check if it's a leaf, has one child, or two children
@@ -92,8 +85,8 @@ bool BST::deleteNode(int k){
 	if(root == NULL) {//tree is empty
 		return false;
 	}
-	TreeNode *current = root;
-	TreeNode *parent = root; //so we can update node's right and left neighbor accordingly
+	TreeNode<T> *current = root;
+	TreeNode<T> *parent = root; //so we can update node's right and left neighbor accordingly
 	bool isLeft = true;
 
 	while(current->key != k)
@@ -149,7 +142,7 @@ bool BST::deleteNode(int k){
 		}
 	}
 	else{//a node has two children
-		TreeNode *successor = getSuccessor(current);
+		TreeNode<T> *successor = getSuccessor(current);
 
 		if(current == root){
 			root =successor;
@@ -164,11 +157,10 @@ bool BST::deleteNode(int k){
 	}
 	return true;
 }
-
-TreeNode* BST::getSuccessor(TreeNode *d){
-	TreeNode *sp = d;
-	TreeNode *successor =d;
-	TreeNode *current = d->right;
+TreeNode<T>* BST::getSuccessor(TreeNode<T> *d){
+	TreeNode<T> *sp = d;
+	TreeNode<T> *successor =d;
+	TreeNode<T> *current = d->right;
 
 	while(current !=NULL){
 		sp= successor;
@@ -180,4 +172,18 @@ TreeNode* BST::getSuccessor(TreeNode *d){
 		successor->right = d->right;
 	}
 	return successor;
-}*/
+}
+
+void BST::printTree(TreeNode<T> *n){
+	if(n!= NULL){
+		printTree(n->left);
+		cout << n->key << n->data -> toString() << endl;
+		printTree(n->right);
+	}
+}
+bool BST::isEmpty(){
+	if(root == NULL){
+		return true;
+	}
+}
+*/

@@ -10,6 +10,7 @@ int main() {
 	Student *clam = new Student(1, "Clam", "Junior", "Business", 3.3, 2);
 	masterStudent->insert(clam->ID);
 	masterStudent->printTree(masterStudent->root);
+	cout << clam;
 
 	return 0;
 }

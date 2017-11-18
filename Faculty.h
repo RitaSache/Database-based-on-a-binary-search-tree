@@ -11,4 +11,5 @@ class Faculty{
 		int *advisees;
 		Faculty(int id, string Name, string Level, string Department);
 		~Faculty();
+		string toString();
 };

@@ -11,4 +11,5 @@ class Student{
 		int advisor;
 		Student(int id, string Name, string Level, string Major, double gpa, int Advisor);
 		~Student();
+		string toString();
 };
