@@ -9,7 +9,9 @@ class Faculty{
 		string department;
 		int size;
 		int *advisees;
-		Faculty(int id, string Name, string Level, string Department);
+		Faculty(int id, string Name, string Level, string Department, int arraySize);
 		~Faculty();
 		string toString();
+		void fillAdvisees();
+		bool duplicate(int id);
 };

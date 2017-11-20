@@ -6,7 +6,7 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 	public:
 		BST();
 		virtual ~BST();
-		void insert(int value);
+		void insert(int value, T* d);
 		bool contains(int value); //like find
 		bool deleteNode(int value);
 		TreeNode<T>* getSuccessor(TreeNode<T> *d); //for deleting a node
@@ -48,8 +48,8 @@ TreeNode<T>* BST<T>::getMax(){
 	return current;
 }
 template <class T>
-void BST<T>::insert(int value){
-	TreeNode<T> *newNode = new TreeNode<T>(value);
+void BST<T>::insert(int value, T* d){
+	TreeNode<T> *newNode = new TreeNode<T>(value, d);
 	if (root == NULL) {//if tree is empty
 		root = newNode;
 	}
@@ -199,7 +199,7 @@ template <class T>
 void BST<T>::printTree(TreeNode<T> *n){
 	if(n!= NULL){
 		printTree(n->left);
-		cout << n->key << n->data -> toString() << endl;
+		cout << n->key << n->data->toString() << endl;
 		printTree(n->right);
 	}
 }

@@ -5,7 +5,7 @@ template <class T>
 class TreeNode {
 	public:
 		TreeNode();
-		TreeNode(int key); //overloaded constructor, key 
+		TreeNode(int key, T* d); //overloaded constructor, key 
 		//here is the value
 		virtual ~TreeNode(); //virtual destructor will be used when you'll make 
 		//templates and inheritance so you can have the same method for every 
@@ -13,7 +13,7 @@ class TreeNode {
 		TreeNode *left;
 		TreeNode *right;
 		int key;
-		T* data;
+		T* data;//pointer to a student or faculty object
 };
 
 template <class T>
@@ -23,10 +23,11 @@ TreeNode<T>::TreeNode() {
 	right = NULL;
 }
 template <class T>
-TreeNode<T>::TreeNode(int k){
+TreeNode<T>::TreeNode(int k, T* d){
 	left = NULL;
 	right = NULL;
 	key = k;
+	data = d;
 }
 template <class T>
 TreeNode<T>::~TreeNode(){

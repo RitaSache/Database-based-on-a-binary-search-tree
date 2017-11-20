@@ -8,9 +8,16 @@ int main() {
 
 	BST<Student>* masterStudent = new BST <Student>();
 	Student *clam = new Student(1, "Clam", "Junior", "Business", 3.3, 2);
-	masterStudent->insert(clam->ID);
+	masterStudent->insert(clam->ID, clam);
 	masterStudent->printTree(masterStudent->root);
-	cout << clam;
+
+
+	BST<Faculty>* masterFaculty = new BST <Faculty>();
+	Faculty *b = new Faculty(1, "Boring", "Associate", "Math", 2);
+	masterFaculty->insert(b->ID, b);
+	masterFaculty->printTree(masterFaculty->root);
+	b -> fillAdvisees();
+
 
 	return 0;
 }
