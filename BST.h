@@ -14,6 +14,7 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		TreeNode<T>* getMax();
 		void printTree(TreeNode<T> *n);
 		bool isEmpty();
+		T* get(int value);
 		TreeNode<T> *root;
 };
 template <class T>
@@ -210,6 +211,25 @@ bool BST<T>::isEmpty(){
 	}
 }
 
+template <class T>
+T* BST<T>::get(int value){
+	if(root == NULL){
+		return NULL;
+	}
+	TreeNode<T> *current = root;
+	while(current->key != value){ //while this key doesnt equal value we will keep iterating
+		if(value < current -> key){
+			current = current -> left;
+		}
+		else{
+			current = current -> right;
+		}
+		if(current == NULL) {
+			return NULL;
+		}	
+	}
+	return current->data;
+}
 
 
 

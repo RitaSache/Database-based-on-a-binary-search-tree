@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 using namespace std;
 
 Student::Student(int id, string Name, string Level, string Major, double gpa, int Advisor){

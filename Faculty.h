@@ -14,4 +14,4 @@ class Faculty{
 		string toString();
 		void fillAdvisees();
 		bool duplicate(int id);
-};
+	};

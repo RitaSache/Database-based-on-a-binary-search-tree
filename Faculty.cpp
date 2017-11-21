@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-
+#include <cstdlib>
 using namespace std;
 
 Faculty::Faculty(int id, string Name, string Level, string Department, int arraySize){
@@ -60,3 +60,4 @@ bool Faculty::duplicate(int id){
 	}
 	return false;
 }
+

@@ -7,7 +7,7 @@ using namespace std;
 int main() {
 
 	BST<Student>* masterStudent = new BST <Student>();
-	Student *clam = new Student(1, "Clam", "Junior", "Business", 3.3, 2);
+	Student *clam = new Student(2, "Clam", "Junior", "Business", 3.3, 1);
 	masterStudent->insert(clam->ID, clam);
 	masterStudent->printTree(masterStudent->root);
 
@@ -18,6 +18,25 @@ int main() {
 	masterFaculty->printTree(masterFaculty->root);
 	b -> fillAdvisees();
 
+	Faculty *f = masterFaculty -> get(b->ID);
+	if (f == NULL) {
+		cout << "No faculty found";
+	} else {
+		cout << clam -> toString();
+	}
+
+	if (clam->advisor != 0) {
+		Faculty *f = masterFaculty -> get(clam->advisor);
+		if (f == NULL) {
+			cout << "No faculty found";
+		} else {
+			cout << f -> toString();
+		}
+	}
+
+	masterStudent -> deleteNode(2);
+	cout << "printing tree";
+	masterStudent->printTree(masterStudent->root);
 
 	return 0;
 }
