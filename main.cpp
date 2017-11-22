@@ -6,17 +6,22 @@
 using namespace std;
 
 void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree, int studentId, int facultyId){
-	if(facultyTree -> get(facultyId) != NULL){
+	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(studentId) != NULL){
 	Student *s = studentTree -> get(studentId);
 	s -> advisor = facultyId;
 	}
 	else{
-		cout << "No faculty found" << endl;
+		cout << "No faculty or student found" << endl;
 	}
 }
-void removeAdvisee(BST<Faculty>* facultyTree, int adviseeId, int facultyId){
+void removeAdvisee(BST<Student>* studentTree, BST<Faculty>* facultyTree, int adviseeId, int facultyId){
+	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(adviseeId) != NULL){
 	Faculty *f = facultyTree -> get(facultyId);
 	remove(f -> advisees, f -> advisees + f -> size, adviseeId);
+	}
+	else {
+		cout << "No faculty or student found" << endl;
+	}
 	// cout << f -> toString();
 
 }
@@ -30,7 +35,7 @@ int main() {
 
 
 	BST<Faculty>* masterFaculty = new BST <Faculty>();
-	Faculty *b = new Faculty(1, "Boring", "Associate", "Math", 4);
+	Faculty *b = new Faculty(1, "Boring", "Associate", "Math", 2);
 	masterFaculty->insert(b->ID, b);
 	b -> fillAdvisees();
 	// masterFaculty->printTree(masterFaculty->root);
@@ -53,7 +58,7 @@ int main() {
 
 	// changeAdvisor(masterStudent, masterFaculty, clam->ID, 7);
 	// masterStudent->printTree(masterStudent->root);
-	// removeAdvisee(masterFaculty, 3, b-> ID);
+	// removeAdvisee(masterStudent, masterFaculty, 3, b-> ID);
 	masterFaculty->printTree(masterFaculty->root);
 
 
