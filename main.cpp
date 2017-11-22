@@ -47,6 +47,60 @@ void displayFaculty(BST<Faculty>* facultyTree){
 		cout << f -> toString() << endl;
 	}
 }
+void printAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree){
+	int studentId = 0;
+	cout << "Please provide a student's ID" << endl;
+	cin >> studentId;
+	Student *s = studentTree -> get(studentId);
+	Faculty *f = facultyTree -> get(s -> advisor);
+	if (f == NULL){
+		cout << "no faculty found" << endl;
+	}	
+	else{
+		cout << f -> toString() << endl;
+	}
+}
+void printAdvisees(BST<Student>* studentTree, BST<Faculty>* facultyTree){
+	int facultyId = 0;
+	cout << "Please provide a faculty's ID " << endl;
+	cin >> facultyId;
+	Faculty *f = facultyTree -> get(facultyId);
+	if(f != NULL){
+		for(int i = 0; i < f->size; i++){
+			cout << studentTree -> get(f -> advisees[i]) -> toString() << endl;
+		}
+	}
+	else {
+		cout << "no faculty found" << endl;
+	}
+}
+int chooseStudentId(BST<Student>* studentTree){
+	int studentId = rand();
+	if(studentTree->contains(studentId)){
+		return chooseStudentId(studentTree);
+	}
+	else{
+		return studentId;
+	}
+}
+void addStudent(BST<Student>* studentTree){
+	string studentName;
+	string studentLevel;
+	string studentMajor;
+	double studentGpa;
+	int studentAdvisor;
+	cout << "Please provide a student's name " << endl;
+	cin >> studentName;
+	cout << "Please provide a student's level " << endl;
+	cin >> studentLevel;
+	cout << "Please provide a student's major " << endl;
+	cin >> studentMajor;
+	cout << "Please provide a student's GPA in this format 0.00 " << endl;
+	cin >> studentGpa;
+	cout << "Please provide a student advisor's ID " << endl;
+	cin >> studentAdvisor;
+	Student *student = new Student(chooseStudentId(studentTree), studentName, studentLevel, studentMajor, studentGpa, studentAdvisor);
+}
 
 int main() {
 	BST<Student>* masterStudent = new BST <Student>();
@@ -80,8 +134,18 @@ int main() {
 		displayStudent(masterStudent);
 	}
 	else if(response == 4){
-
+		displayFaculty(masterFaculty);
 	}
+	else if(response == 5){
+		printAdvisor(masterStudent, masterFaculty);
+	}
+	else if(response == 6){
+		printAdvisees(masterStudent, masterFaculty);
+	}
+	else if(response == 7){
+		addStudent(masterStudent);
+	}
+
 	/*BST<Student>* masterStudent = new BST <Student>();
 	Student *clam = new Student(2, "Clam", "Junior", "Business", 3.3, 1);
 	masterStudent->insert(clam->ID, clam);*/
