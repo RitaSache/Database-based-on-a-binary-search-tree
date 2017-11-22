@@ -7,8 +7,8 @@ using namespace std;
 
 void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree, int studentId, int facultyId){
 	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(studentId) != NULL){
-	Student *s = studentTree -> get(studentId);
-	s -> advisor = facultyId;
+		Student *s = studentTree -> get(studentId);
+		s -> advisor = facultyId;
 	}
 	else{
 		cout << "No faculty or student found" << endl;
@@ -16,28 +16,82 @@ void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree, int stu
 }
 void removeAdvisee(BST<Student>* studentTree, BST<Faculty>* facultyTree, int adviseeId, int facultyId){
 	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(adviseeId) != NULL){
-	Faculty *f = facultyTree -> get(facultyId);
-	remove(f -> advisees, f -> advisees + f -> size, adviseeId);
+		Faculty *f = facultyTree -> get(facultyId);
+		remove(f -> advisees, f -> advisees + f -> size, adviseeId);
 	}
 	else {
 		cout << "No faculty or student found" << endl;
 	}
-	// cout << f -> toString();
-
+}
+void displayStudent(BST<Student>* studentTree){
+	int studentId = 0;
+	cout << "Please provide a student's ID " << endl;
+	cin >> studentId;
+	Student *s = studentTree -> get(studentId);
+	if (s == NULL){
+		cout << "no student found " << endl;
+	}
+	else {
+		cout << s -> toString() << endl;
+	}
+}
+void displayFaculty(BST<Faculty>* facultyTree){
+	int facultyId = 0;
+	cout << "Please provide a faculty's ID " << endl;
+	cin >> facultyId;
+	Faculty *f = facultyTree -> get(facultyId);
+	if(f == NULL){
+		cout << "no faculty found" << endl;
+	}
+	else {
+		cout << f -> toString() << endl;
+	}
 }
 
 int main() {
-
 	BST<Student>* masterStudent = new BST <Student>();
+	BST<Faculty>* masterFaculty = new BST <Faculty>();
+
+	int response;
+	cout << "Choose a number from the menu: " << endl;
+	cout << "1.  Print all students and their information (sorted by ascending id #)" << endl;
+	cout << "2.  Print all faculty and their information (sorted by ascending id #)" << endl;
+	cout << "3.  Find and display student information given the students id" << endl;
+	cout << "4.  Find and display faculty information given the faculty id" << endl;
+	cout << "5.  Given a student’s id, print the name and info of their faculty advisor" << endl;
+	cout << "6.  Given a faculty id, print all the names and info of his/her advisees" << endl;
+	cout << "7.  Add a new student" << endl;
+	cout << "8.  Delete a student given the id" << endl;
+	cout << "9.  Add a new faculty member" << endl;
+	cout << "10. Delete a faculty member given the id" << endl;
+	cout << "11. Change a student’s advisor given the student id and the new faculty id" << endl;
+	cout << "12. Remove an advisee from a faculty member given the ids" << endl;
+	cout << "13. Rollback" << endl;
+	cout << "14. Exit" << endl;
+	cin >> response;
+
+	if(response == 1){
+		masterStudent->printTree(masterStudent->root);
+	}
+	else if(response == 2){
+		masterFaculty->printTree(masterFaculty->root);
+	}
+	else if(response == 3){
+		displayStudent(masterStudent);
+	}
+	else if(response == 4){
+
+	}
+	/*BST<Student>* masterStudent = new BST <Student>();
 	Student *clam = new Student(2, "Clam", "Junior", "Business", 3.3, 1);
-	masterStudent->insert(clam->ID, clam);
+	masterStudent->insert(clam->ID, clam);*/
 	// masterStudent->printTree(masterStudent->root);
 
 
-	BST<Faculty>* masterFaculty = new BST <Faculty>();
+	/*BST<Faculty>* masterFaculty = new BST <Faculty>();
 	Faculty *b = new Faculty(1, "Boring", "Associate", "Math", 2);
 	masterFaculty->insert(b->ID, b);
-	b -> fillAdvisees();
+	b -> fillAdvisees();*/
 	// masterFaculty->printTree(masterFaculty->root);
 
 	// Faculty *f = masterFaculty -> get(b->ID);
@@ -59,7 +113,7 @@ int main() {
 	// changeAdvisor(masterStudent, masterFaculty, clam->ID, 7);
 	// masterStudent->printTree(masterStudent->root);
 	// removeAdvisee(masterStudent, masterFaculty, 3, b-> ID);
-	masterFaculty->printTree(masterFaculty->root);
+	//masterFaculty->printTree(masterFaculty->root);
 
 
 	/*masterStudent -> deleteNode(2);
