@@ -2,45 +2,69 @@
 #include "Faculty.h"
 #include "BST.h"
 #include <iostream>
+#include <algorithm>
 using namespace std;
+
+void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree, int studentId, int facultyId){
+	if(facultyTree -> get(facultyId) != NULL){
+	Student *s = studentTree -> get(studentId);
+	s -> advisor = facultyId;
+	}
+	else{
+		cout << "No faculty found" << endl;
+	}
+}
+void removeAdvisee(BST<Faculty>* facultyTree, int adviseeId, int facultyId){
+	Faculty *f = facultyTree -> get(facultyId);
+	remove(f -> advisees, f -> advisees + f -> size, adviseeId);
+	// cout << f -> toString();
+
+}
 
 int main() {
 
 	BST<Student>* masterStudent = new BST <Student>();
 	Student *clam = new Student(2, "Clam", "Junior", "Business", 3.3, 1);
 	masterStudent->insert(clam->ID, clam);
-	masterStudent->printTree(masterStudent->root);
+	// masterStudent->printTree(masterStudent->root);
 
 
 	BST<Faculty>* masterFaculty = new BST <Faculty>();
-	Faculty *b = new Faculty(1, "Boring", "Associate", "Math", 2);
+	Faculty *b = new Faculty(1, "Boring", "Associate", "Math", 4);
 	masterFaculty->insert(b->ID, b);
-	masterFaculty->printTree(masterFaculty->root);
 	b -> fillAdvisees();
+	// masterFaculty->printTree(masterFaculty->root);
 
-	Faculty *f = masterFaculty -> get(b->ID);
-	if (f == NULL) {
-		cout << "No faculty found";
-	} else {
-		cout << clam -> toString();
-	}
+	// Faculty *f = masterFaculty -> get(b->ID);
+	// if (f == NULL) {
+	// 	cout << "No faculty found";
+	// } else {
+	// 	cout << clam -> toString();
+	// }
 
-	if (clam->advisor != 0) {
-		Faculty *f = masterFaculty -> get(clam->advisor);
-		if (f == NULL) {
-			cout << "No faculty found";
-		} else {
-			cout << f -> toString();
-		}
-	}
+	// if (clam->advisor != 0) {
+	// 	Faculty *f = masterFaculty -> get(clam->advisor);
+	// 	if (f == NULL) {
+	// 		cout << "No faculty found";
+	// 	} else {
+	// 		cout << f -> toString();
+	// 	}
+	// }
 
-	masterStudent -> deleteNode(2);
+	// changeAdvisor(masterStudent, masterFaculty, clam->ID, 7);
+	// masterStudent->printTree(masterStudent->root);
+	// removeAdvisee(masterFaculty, 3, b-> ID);
+	masterFaculty->printTree(masterFaculty->root);
+
+
+	/*masterStudent -> deleteNode(2);
 	cout << "printing tree";
-	masterStudent->printTree(masterStudent->root);
+	masterStudent->printTree(masterStudent->root);*/
+
+
 
 	return 0;
 }
-
 //create a person class with member vars that overlap with student and faculty. then create student and faculty sublasses that inherit from the person class
 //6 classes: BST, Faculty tree, student tree, Person, faculty and student subclasses
 //ascending order is a in order traversal

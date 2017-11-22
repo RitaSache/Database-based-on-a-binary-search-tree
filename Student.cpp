@@ -21,3 +21,4 @@ string Student::toString(){
   	ss << " Id is " << ID << ", name is " << name << ", level is " << level << ", major is " << major << ", gpa is " << GPA << ", advisor is " << advisor << endl;
   	return ss.str();
 }
+

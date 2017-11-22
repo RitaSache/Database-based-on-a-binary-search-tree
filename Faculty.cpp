@@ -20,8 +20,22 @@ Faculty::Faculty(int id, string Name, string Level, string Department, int array
 Faculty::~Faculty(){}
 
 string Faculty::toString(){
-	ostringstream ss;
-	ss << " Id is " << ID << ", name is " << name << ", level is " << level << ", department is " << department << endl;
+	ostringstream ss;	
+	ss 
+	<< " Id is " << ID 
+	<< ", name is " << name 
+	<< ", level is " << level 
+	<< ", department is " << department
+	<< ", advisees are [";
+	for(int i=0; i<size; i++){
+		if(i == 0){
+			ss << "" << advisees[i];
+		}
+		else{
+			ss << ", " << advisees[i];
+		}
+	}
+	ss << "]" << endl;
   	return ss.str();
 }
 
