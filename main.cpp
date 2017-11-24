@@ -20,6 +20,13 @@ void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 		cout << "No faculty or student found" << endl;
 	}
 }
+void setToZero(Faculty *f, int id){
+	for(int i = 0; i < f->size; i++){
+		if(f->advisees[i] == id){
+			f->advisees[i] = 0;
+		}
+	}
+}
 void removeAdvisee(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	int adviseeId=0;
 	int facultyId=0;
@@ -29,7 +36,8 @@ void removeAdvisee(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	cin >> facultyId;
 	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(adviseeId) != NULL){
 		Faculty *f = facultyTree -> get(facultyId);
-		remove(f -> advisees, f -> advisees + f -> size, adviseeId);
+		setToZero(f, adviseeId);
+		//remove(f -> advisees, f -> advisees + f -> size, adviseeId);
 	}
 	else {
 		cout << "No faculty or student found" << endl;
@@ -189,8 +197,17 @@ void addFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	cin >> facultyLevel;
 	cout << "Please provide a faculty's department " << endl;
 	cin >> facultyDepartment;
-	cout << "Please provide a number of advisees " << endl;
-	cin >> numberOfAdvisees;
+	while (true){
+		cout << "Please provide a number of advisees " << endl;
+		cin >> numberOfAdvisees;
+		if(numberOfAdvisees > studentTree->count){
+			cout << "number of advisees exceeds the number of students available in the database " << endl;
+			continue;
+		}
+		else {
+			break;
+		}
+	}
 	Faculty *faculty = new Faculty(chooseFacultyId(facultyTree), facultyName, facultyLevel, facultyDepartment, numberOfAdvisees);
 	facultyTree->insert(faculty->ID, faculty);
 	fillAdvisees(studentTree, faculty);

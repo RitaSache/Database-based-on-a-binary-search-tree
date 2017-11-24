@@ -16,10 +16,12 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		bool isEmpty();
 		T* get(int value);
 		TreeNode<T> *root;
+		int count;
 };
 template <class T>
 BST<T>::BST(){
 	root = NULL;
+	count = 0;
 }
 template <class T>
 BST<T>::~BST(){
@@ -77,6 +79,7 @@ void BST<T>::insert(int value, T* d){
 			}
 		}
 	}
+	count++;
 }
 template <class T>
 bool BST<T>::contains(int value){
@@ -178,6 +181,7 @@ bool BST<T>::deleteNode(int k){
 		successor->left = current->left;
 	}
 	return true;
+	count--;
 }
 template <class T>
 TreeNode<T>* BST<T>::getSuccessor(TreeNode<T> *d){
