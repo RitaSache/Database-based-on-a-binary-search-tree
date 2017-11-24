@@ -261,7 +261,16 @@ int main() {
 		printAdvisees(masterStudent, masterFaculty);
 	}
 	else if(response == 7){
-		addStudent(masterStudent, masterFaculty);
+		BST<Student> *newMasterStudent = masterStudent->copy();
+		BST<Faculty> *newMasterFaculty = masterFaculty->copy();
+
+		// Add masterStudent to stack
+		// Add masterFaculty to stack
+
+		addStudent(newMasterStudent, newMasterFaculty);
+
+		masterStudent = newMasterStudent;
+		masterFaculty = newMasterFaculty;
 	}
 	else if(response == 8){
 		deleteStudent(masterStudent);

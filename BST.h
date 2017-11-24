@@ -15,6 +15,8 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		void printTree(TreeNode<T> *n);
 		bool isEmpty();
 		T* get(int value);
+		BST<T>* copy();
+		TreeNode<T>* copyNode(TreeNode<T> *node);
 		TreeNode<T> *root;
 		int count;
 };
@@ -236,6 +238,35 @@ T* BST<T>::get(int value){
 		}	
 	}
 	return current->data;
+}
+
+template <class T>
+BST<T>* BST<T>::copy(){
+	BST<T> *newBST = new BST<T>();
+	newBST->root = copyNode(root);
+	newBST->count = count;
+	return newBST;
+}
+
+template <class T>
+TreeNode<T>* BST<T>::copyNode(TreeNode<T> *node){
+	if (node != NULL) {
+		TreeNode<T> *newNode = new TreeNode<T>();
+		newNode->key = node->key;
+		newNode->data = node->data->copy();
+		if (node->left != NULL) {
+			newNode->left = copyNode(node->left);
+		}
+
+		if (node->right != NULL) {
+			newNode->right = copyNode(node->right);
+		}
+
+		return newNode;
+	}
+	else {
+		return NULL;	
+	}
 }
 
 
