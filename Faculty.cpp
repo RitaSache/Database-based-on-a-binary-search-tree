@@ -39,7 +39,7 @@ string Faculty::toString(){
   	return ss.str();
 }
 
-void Faculty::fillAdvisees(){
+/*void Faculty::fillAdvisees(){
 	int id = 0;
 	for(int i = 0; i < size; i++){
 		cout << "Please provide an advisee's ID" << endl;
@@ -50,7 +50,6 @@ void Faculty::fillAdvisees(){
 			i--;
 			continue;
 		}
-
 		if(duplicate(id)) {
 			cout << "This id already exists" << endl;
 			i--;
@@ -74,4 +73,4 @@ bool Faculty::duplicate(int id){
 	}
 	return false;
 }
-
+*/

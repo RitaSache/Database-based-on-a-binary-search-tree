@@ -83,31 +83,105 @@ int chooseStudentId(BST<Student>* studentTree){
 		return studentId;
 	}
 }
-void addStudent(BST<Student>* studentTree){
+int chooseFacultyId(BST<Faculty>* facultyTree){
+	int facultyId = rand();
+	if(facultyTree->contains(facultyId)){
+		return chooseFacultyId(facultyTree);
+	}
+	else{
+		return facultyId;
+	}
+}
+void addStudent(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	string studentName;
 	string studentLevel;
 	string studentMajor;
-	double studentGpa;
-	int studentAdvisor;
+	double studentGpa = 0.00;
+	int studentAdvisor = 0;
 	cout << "Please provide a student's name " << endl;
 	cin >> studentName;
 	cout << "Please provide a student's level " << endl;
 	cin >> studentLevel;
 	cout << "Please provide a student's major " << endl;
 	cin >> studentMajor;
-	cout << "Please provide a student's GPA in this format 0.00 " << endl;
+	cout << "Please provide a student's GPA in this format 0.00 " << endl;//fix double
 	cin >> studentGpa;
-	cout << "Please provide a student advisor's ID " << endl;
-	cin >> studentAdvisor;
+	if(!facultyTree -> isEmpty()) {
+		while(true) {
+		cout << "Please provide a student advisor's ID " << endl;
+		cin >> studentAdvisor;
+			if (!facultyTree -> contains(studentAdvisor)){
+				cout << "There is no advisor with the given ID " << endl;
+				continue;
+			}
+			else{
+				break;
+			}
+		}
+	}
+	else{
+		cout << "Cannot add an advisor because there are no faculty in the database. " << endl;
+	}
 	Student *student = new Student(chooseStudentId(studentTree), studentName, studentLevel, studentMajor, studentGpa, studentAdvisor);
 	studentTree->insert(student->ID, student);
-	//choose a random student advisor
 }
 void deleteStudent(BST<Student>* studentTree){
 	int studentId = 0;
 	cout << "Please provide a student's id " << endl;
 	cin >> studentId;
 	studentTree->deleteNode(studentId);
+}
+bool duplicate(int id, Faculty *f){
+	for(int i = 0; i < f->size; i++){
+		if(id == f->advisees[i]){
+			return true;
+		}
+	}
+	return false;
+}
+void fillAdvisees(BST<Student>* studentTree, Faculty *f){
+	int id = 0;
+	if(!studentTree->isEmpty()){
+		for(int i = 0; i < f->size; i++){
+			cout << "Please provide an advisee's ID" << endl;
+			cin >> id;
+			
+			if(duplicate(id, f)) {
+				cout << "This id already exists" << endl;
+				i--;
+				continue;
+			}
+			if(studentTree->contains(id)) {
+				f->advisees[i] = id;
+			}
+			else {
+				cout << "this ID is not in the database " << endl;
+				i--;
+				continue;
+			}	
+		}
+	}
+	else{
+		cout << "Cannot assign advisees, there are no students in the database yet. Add a student first. " << endl;
+	}
+}
+
+void addFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
+	string facultyName;
+	string facultyLevel;
+	string facultyDepartment;
+	int numberOfAdvisees = 0;
+	cout << "Please provide a faculty's name " << endl;
+	cin >> facultyName;
+	cout << "Please provide a faculty's level " << endl;
+	cin >> facultyLevel;
+	cout << "Please provide a faculty's department " << endl;
+	cin >> facultyDepartment;
+	cout << "Please provide a number of advisees " << endl;
+	cin >> numberOfAdvisees;
+	Faculty *faculty = new Faculty(chooseFacultyId(facultyTree), facultyName, facultyLevel, facultyDepartment, numberOfAdvisees);
+	facultyTree->insert(faculty->ID, faculty);
+	fillAdvisees(studentTree, faculty);
 }
 
 int main() {
@@ -152,10 +226,13 @@ int main() {
 		printAdvisees(masterStudent, masterFaculty);
 	}
 	else if(response == 7){
-		addStudent(masterStudent);
+		addStudent(masterStudent, masterFaculty);
 	}
 	else if(response == 8){
 		deleteStudent(masterStudent);
+	}
+	else if(response == 9){
+		addFaculty(masterStudent, masterFaculty);
 	}
 	else if(response == 14){
 		break;

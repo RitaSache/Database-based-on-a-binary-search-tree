@@ -209,6 +209,9 @@ bool BST<T>::isEmpty(){
 	if(root == NULL){
 		return true;
 	}
+	else{
+		return false;
+	}
 }
 
 template <class T>
