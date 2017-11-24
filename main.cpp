@@ -5,7 +5,13 @@
 #include <algorithm>
 using namespace std;
 
-void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree, int studentId, int facultyId){
+void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree){
+	int studentId=0; 
+	int facultyId=0;
+	cout << "Please provide a student's ID " << endl;
+	cin >> studentId;
+	cout << "Please provide an advisor's ID " << endl;
+	cin >> facultyId;
 	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(studentId) != NULL){
 		Student *s = studentTree -> get(studentId);
 		s -> advisor = facultyId;
@@ -14,7 +20,13 @@ void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree, int stu
 		cout << "No faculty or student found" << endl;
 	}
 }
-void removeAdvisee(BST<Student>* studentTree, BST<Faculty>* facultyTree, int adviseeId, int facultyId){
+void removeAdvisee(BST<Student>* studentTree, BST<Faculty>* facultyTree){
+	int adviseeId=0;
+	int facultyId=0;
+	cout << "Please provide an advisee's ID " << endl;
+	cin >> adviseeId;
+	cout << "Please provide a faculty's ID " << endl;
+	cin >> facultyId;
 	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(adviseeId) != NULL){
 		Faculty *f = facultyTree -> get(facultyId);
 		remove(f -> advisees, f -> advisees + f -> size, adviseeId);
@@ -145,7 +157,7 @@ void fillAdvisees(BST<Student>* studentTree, Faculty *f){
 		for(int i = 0; i < f->size; i++){
 			cout << "Please provide an advisee's ID" << endl;
 			cin >> id;
-			
+
 			if(duplicate(id, f)) {
 				cout << "This id already exists" << endl;
 				i--;
@@ -155,7 +167,7 @@ void fillAdvisees(BST<Student>* studentTree, Faculty *f){
 				f->advisees[i] = id;
 			}
 			else {
-				cout << "this ID is not in the database " << endl;
+				cout << "this student ID is not in the database " << endl;
 				i--;
 				continue;
 			}	
@@ -182,6 +194,12 @@ void addFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	Faculty *faculty = new Faculty(chooseFacultyId(facultyTree), facultyName, facultyLevel, facultyDepartment, numberOfAdvisees);
 	facultyTree->insert(faculty->ID, faculty);
 	fillAdvisees(studentTree, faculty);
+}
+void deleteFaculty(BST<Faculty>* facultyTree){
+	int facultyId = 0;
+	cout << "Please provide a faculty's id " << endl;
+	cin >> facultyId;
+	facultyTree->deleteNode(facultyId);
 }
 
 int main() {
@@ -233,6 +251,15 @@ int main() {
 	}
 	else if(response == 9){
 		addFaculty(masterStudent, masterFaculty);
+	}
+	else if(response == 10){
+		deleteFaculty(masterFaculty);
+	}
+	else if(response == 11){
+		changeAdvisor(masterStudent, masterFaculty);
+	}
+	else if(response == 12){
+		removeAdvisee(masterStudent, masterFaculty);
 	}
 	else if(response == 14){
 		break;
