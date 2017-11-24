@@ -12,4 +12,5 @@ class Student{
 		Student(int id, string Name, string Level, string Major, double gpa, int Advisor);
 		~Student();
 		string toString();
+		Student* copy();
 };

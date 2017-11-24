@@ -12,6 +12,5 @@ class Faculty{
 		Faculty(int id, string Name, string Level, string Department, int arraySize);
 		~Faculty();
 		string toString();
-		//void fillAdvisees();
-		//bool duplicate(int id);
+		Faculty* copy();
 };

@@ -2,7 +2,7 @@
 #include "Faculty.h"
 #include "BST.h"
 #include <iostream>
-#include <algorithm>
+#include "GenStack.h"
 using namespace std;
 
 void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree){
@@ -222,6 +222,7 @@ void deleteFaculty(BST<Faculty>* facultyTree){
 int main() {
 	BST<Student>* masterStudent = new BST <Student>();
 	BST<Faculty>* masterFaculty = new BST <Faculty>();
+	//GenStack<BST<Student>* > studentTrees(5);
 
 	while(true){
 	int response;

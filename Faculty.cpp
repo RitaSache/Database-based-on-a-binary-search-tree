@@ -38,6 +38,13 @@ string Faculty::toString(){
 	ss << "]" << endl;
   	return ss.str();
 }
+Faculty* Faculty::copy(){
+	Faculty* f = new Faculty(ID, name, level, department, size);
+	for(int i = 0; i<size; i++){
+		f->advisees[i] = advisees[i];
+	}
+	return f;
+}
 
 /*void Faculty::fillAdvisees(){
 	int id = 0;
