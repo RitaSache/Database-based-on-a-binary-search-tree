@@ -100,12 +100,21 @@ void addStudent(BST<Student>* studentTree){
 	cout << "Please provide a student advisor's ID " << endl;
 	cin >> studentAdvisor;
 	Student *student = new Student(chooseStudentId(studentTree), studentName, studentLevel, studentMajor, studentGpa, studentAdvisor);
+	studentTree->insert(student->ID, student);
+	//choose a random student advisor
+}
+void deleteStudent(BST<Student>* studentTree){
+	int studentId = 0;
+	cout << "Please provide a student's id " << endl;
+	cin >> studentId;
+	studentTree->deleteNode(studentId);
 }
 
 int main() {
 	BST<Student>* masterStudent = new BST <Student>();
 	BST<Faculty>* masterFaculty = new BST <Faculty>();
 
+	while(true){
 	int response;
 	cout << "Choose a number from the menu: " << endl;
 	cout << "1.  Print all students and their information (sorted by ascending id #)" << endl;
@@ -145,7 +154,13 @@ int main() {
 	else if(response == 7){
 		addStudent(masterStudent);
 	}
-
+	else if(response == 8){
+		deleteStudent(masterStudent);
+	}
+	else if(response == 14){
+		break;
+	}
+	}
 	/*BST<Student>* masterStudent = new BST <Student>();
 	Student *clam = new Student(2, "Clam", "Junior", "Business", 3.3, 1);
 	masterStudent->insert(clam->ID, clam);*/
