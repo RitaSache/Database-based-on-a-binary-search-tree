@@ -197,7 +197,7 @@ void addFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	cin >> facultyLevel;
 	cout << "Please provide a faculty's department " << endl;
 	cin >> facultyDepartment;
-	while (true){
+	while (!studentTree -> isEmpty()){
 		cout << "Please provide a number of advisees " << endl;
 		cin >> numberOfAdvisees;
 		if(numberOfAdvisees > studentTree->count){

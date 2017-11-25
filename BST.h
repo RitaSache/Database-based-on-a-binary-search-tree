@@ -17,6 +17,7 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		T* get(int value);
 		BST<T>* copy();
 		TreeNode<T>* copyNode(TreeNode<T> *node);
+		void eraseNode(TreeNode<T> *node);
 		TreeNode<T> *root;
 		int count;
 };
@@ -27,9 +28,18 @@ BST<T>::BST(){
 }
 template <class T>
 BST<T>::~BST(){
-	//research it
-	//iterate and delete
+	eraseNode(root);
 }
+
+template <class T>
+void BST<T>::eraseNode(TreeNode<T> *node){
+	if (node != NULL) {
+		eraseNode(node->left);
+		eraseNode(node->right);
+		delete node;
+	}
+}
+
 template <class T>
 TreeNode<T>* BST<T>::getMin(){ //curr to keep track where we are as we navigate through tree
 	TreeNode<T> *current = root; //start at root

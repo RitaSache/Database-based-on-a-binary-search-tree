@@ -31,5 +31,5 @@ TreeNode<T>::TreeNode(int k, T* d){
 }
 template <class T>
 TreeNode<T>::~TreeNode(){
-	//research it
+	delete data;
 }
