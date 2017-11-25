@@ -222,7 +222,8 @@ void deleteFaculty(BST<Faculty>* facultyTree){
 int main() {
 	BST<Student>* masterStudent = new BST <Student>();
 	BST<Faculty>* masterFaculty = new BST <Faculty>();
-	//GenStack<BST<Student>* > studentTrees(5);
+	GenStack<BST<Student> *> studentTrees(5);
+	GenStack<BST<Faculty> *> facultyTrees(5);
 
 	while(true){
 	int response;
@@ -265,28 +266,72 @@ int main() {
 		BST<Student> *newMasterStudent = masterStudent->copy();
 		BST<Faculty> *newMasterFaculty = masterFaculty->copy();
 
-		// Add masterStudent to stack
-		// Add masterFaculty to stack
-
+		studentTrees.push(masterStudent);
+		facultyTrees.push(masterFaculty);
 		addStudent(newMasterStudent, newMasterFaculty);
 
 		masterStudent = newMasterStudent;
 		masterFaculty = newMasterFaculty;
 	}
 	else if(response == 8){
-		deleteStudent(masterStudent);
+		BST<Student> *newMasterStudent = masterStudent->copy();
+		BST<Faculty> *newMasterFaculty = masterFaculty->copy();
+
+		studentTrees.push(masterStudent);
+		facultyTrees.push(masterFaculty);
+		deleteStudent(newMasterStudent);
+
+		masterStudent = newMasterStudent;
+		masterFaculty = newMasterFaculty;
 	}
 	else if(response == 9){
-		addFaculty(masterStudent, masterFaculty);
+		BST<Student> *newMasterStudent = masterStudent->copy();
+		BST<Faculty> *newMasterFaculty = masterFaculty->copy();
+
+		studentTrees.push(masterStudent);
+		facultyTrees.push(masterFaculty);
+		addFaculty(newMasterStudent, newMasterFaculty);
+
+		masterStudent = newMasterStudent;
+		masterFaculty = newMasterFaculty;
 	}
 	else if(response == 10){
-		deleteFaculty(masterFaculty);
+		BST<Student> *newMasterStudent = masterStudent->copy();
+		BST<Faculty> *newMasterFaculty = masterFaculty->copy();
+
+		studentTrees.push(masterStudent);
+		facultyTrees.push(masterFaculty);
+		deleteFaculty(newMasterFaculty);
+
+		masterStudent = newMasterStudent;
+		masterFaculty = newMasterFaculty;
+	
 	}
 	else if(response == 11){
-		changeAdvisor(masterStudent, masterFaculty);
+		BST<Student> *newMasterStudent = masterStudent->copy();
+		BST<Faculty> *newMasterFaculty = masterFaculty->copy();
+
+		studentTrees.push(masterStudent);
+		facultyTrees.push(masterFaculty);
+		changeAdvisor(newMasterStudent, newMasterFaculty);
+
+		masterStudent = newMasterStudent;
+		masterFaculty = newMasterFaculty;
 	}
 	else if(response == 12){
-		removeAdvisee(masterStudent, masterFaculty);
+		BST<Student> *newMasterStudent = masterStudent->copy();
+		BST<Faculty> *newMasterFaculty = masterFaculty->copy();
+
+		studentTrees.push(masterStudent);
+		facultyTrees.push(masterFaculty);
+		removeAdvisee(newMasterStudent, newMasterFaculty);
+
+		masterStudent = newMasterStudent;
+		masterFaculty = newMasterFaculty;	
+	}
+	else if(response == 13){
+		masterStudent = studentTrees.pop();
+		masterFaculty = facultyTrees.pop();
 	}
 	else if(response == 14){
 		break;
