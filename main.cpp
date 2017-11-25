@@ -215,8 +215,13 @@ void addFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 void deleteFaculty(BST<Faculty>* facultyTree){
 	int facultyId = 0;
 	cout << "Please provide a faculty's id " << endl;
-	cin >> facultyId;
-	facultyTree->deleteNode(facultyId);
+	cin >> facultyId; //when deleting a faculty, get that faculty and for every advisee set their advisor to zero
+	if(facultyTree->contains(facultyId)) {
+		facultyTree->deleteNode(facultyId);
+	}
+	else {
+		cout << "faculty with this ID was not found" << endl;
+	}
 }
 
 int main() {
