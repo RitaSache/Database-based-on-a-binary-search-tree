@@ -46,8 +46,6 @@ void Student::save(ofstream& output) {
 
 	output.write(reinterpret_cast<const char*>(&GPA), sizeof GPA);
 	output.write(reinterpret_cast<const char*>(&advisor), sizeof advisor);
-
-	cout << "Writing. Name size: " << nameSize << ". levelSize: " << levelSize << ". majorSize: " << majorSize << endl;
 }
 
 void Student::load(ifstream& input) {
@@ -67,7 +65,5 @@ void Student::load(ifstream& input) {
 
 	input.read(reinterpret_cast<char*>(&GPA), sizeof GPA);
 	input.read(reinterpret_cast<char*>(&advisor), sizeof advisor);
-
-	cout << "Reading. Name size: " << nameSize << ". levelSize: " << levelSize << ". majorSize: " << majorSize << endl;
 }
 

@@ -1,5 +1,5 @@
 // basic file operations
-#include <iostream>
+/*#include <iostream>
 #include <fstream>
 #include "Faculty.h"
 using namespace std;
@@ -25,4 +25,4 @@ int main () {
   cout << g.toString() << endl;
 
   return 0;
-}
+}*/

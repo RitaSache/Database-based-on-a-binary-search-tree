@@ -3,6 +3,7 @@
 #include "BST.h"
 #include <iostream>
 #include "GenStack.h"
+#include <fstream>
 using namespace std;
 
 void changeAdvisor(BST<Student>* studentTree, BST<Faculty>* facultyTree){
@@ -236,6 +237,18 @@ void deleteFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 		cout << "faculty with this ID was not found" << endl;
 	}
 }
+void writeToFile(BST<Student>* studentTree, BST<Faculty>* facultyTree){
+  ofstream outfile;
+  outfile.open ("StudentTable", ios::out | ios::binary);
+  outfile.write(reinterpret_cast<const char*>(&(studentTree->count)), sizeof studentTree->count);
+  studentTree->save(outfile, studentTree->root);
+  outfile.close();
+
+  outfile.open ("FacultyTable", ios::out | ios::binary);
+  outfile.write(reinterpret_cast<const char*>(&(facultyTree->count)), sizeof facultyTree->count);
+  facultyTree->save(outfile, facultyTree->root);
+  outfile.close();
+}
 
 int main() {
 	BST<Student>* masterStudent = new BST <Student>();
@@ -355,46 +368,7 @@ int main() {
 		break;
 	}
 	}
-	/*BST<Student>* masterStudent = new BST <Student>();
-	Student *clam = new Student(2, "Clam", "Junior", "Business", 3.3, 1);
-	masterStudent->insert(clam->ID, clam);*/
-	// masterStudent->printTree(masterStudent->root);
-
-
-	/*BST<Faculty>* masterFaculty = new BST <Faculty>();
-	Faculty *b = new Faculty(1, "Boring", "Associate", "Math", 2);
-	masterFaculty->insert(b->ID, b);
-	b -> fillAdvisees();*/
-	// masterFaculty->printTree(masterFaculty->root);
-
-	// Faculty *f = masterFaculty -> get(b->ID);
-	// if (f == NULL) {
-	// 	cout << "No faculty found";
-	// } else {
-	// 	cout << clam -> toString();
-	// }
-
-	// if (clam->advisor != 0) {
-	// 	Faculty *f = masterFaculty -> get(clam->advisor);
-	// 	if (f == NULL) {
-	// 		cout << "No faculty found";
-	// 	} else {
-	// 		cout << f -> toString();
-	// 	}
-	// }
-
-	// changeAdvisor(masterStudent, masterFaculty, clam->ID, 7);
-	// masterStudent->printTree(masterStudent->root);
-	// removeAdvisee(masterStudent, masterFaculty, 3, b-> ID);
-	//masterFaculty->printTree(masterFaculty->root);
-
-
-	/*masterStudent -> deleteNode(2);
-	cout << "printing tree";
-	masterStudent->printTree(masterStudent->root);*/
-
-
-
+	writeToFile(masterStudent, masterFaculty);
 	return 0;
 }
 //create a person class with member vars that overlap with student and faculty. then create student and faculty sublasses that inherit from the person class

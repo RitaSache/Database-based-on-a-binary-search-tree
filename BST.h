@@ -1,4 +1,4 @@
-
+#include <fstream>
 #include "TreeNode.h"
 using namespace std;
 template <class T>
@@ -18,6 +18,7 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		BST<T>* copy();
 		TreeNode<T>* copyNode(TreeNode<T> *node);
 		void eraseNode(TreeNode<T> *node);
+		void save(ofstream& output, TreeNode<T> *n);
 		TreeNode<T> *root;
 		int count;
 };
@@ -276,6 +277,14 @@ TreeNode<T>* BST<T>::copyNode(TreeNode<T> *node){
 	}
 	else {
 		return NULL;	
+	}
+}
+template <class T>
+void BST<T>::save(ofstream& output, TreeNode<T> *n){
+	if(n!= NULL){
+		n->data->save(output);
+		save(output, n->left);
+		save(output, n->right);
 	}
 }
 
