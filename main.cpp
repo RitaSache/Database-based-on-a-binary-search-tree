@@ -145,11 +145,19 @@ void addStudent(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	Student *student = new Student(chooseStudentId(studentTree), studentName, studentLevel, studentMajor, studentGpa, studentAdvisor);
 	studentTree->insert(student->ID, student);
 }
-void deleteStudent(BST<Student>* studentTree){
+void deleteStudent(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	int studentId = 0;
 	cout << "Please provide a student's id " << endl;
 	cin >> studentId;
-	studentTree->deleteNode(studentId);
+	if(studentTree -> contains(studentId)){
+		Student *s = studentTree -> get(studentId);
+		Faculty *f = facultyTree -> get(s->advisor);
+		setToZero(f, studentId);
+		studentTree->deleteNode(studentId);
+	}
+	else{
+		cout << "No student found with the given ID " << endl;
+	}
 }
 bool duplicate(int id, Faculty *f){
 	for(int i = 0; i < f->size; i++){
@@ -212,11 +220,16 @@ void addFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	facultyTree->insert(faculty->ID, faculty);
 	fillAdvisees(studentTree, faculty);
 }
-void deleteFaculty(BST<Faculty>* facultyTree){
+void deleteFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	int facultyId = 0;
 	cout << "Please provide a faculty's id " << endl;
-	cin >> facultyId; //when deleting a faculty, get that faculty and for every advisee set their advisor to zero
+	cin >> facultyId; 
 	if(facultyTree->contains(facultyId)) {
+		Faculty *f = facultyTree -> get(facultyId);
+		for(int i = 0; i < f->size; i++){
+			Student *s = studentTree -> get(f -> advisees[i]);
+			s -> advisor = 0;
+		}
 		facultyTree->deleteNode(facultyId);
 	}
 	else {
@@ -284,7 +297,7 @@ int main() {
 
 		studentTrees.push(masterStudent);
 		facultyTrees.push(masterFaculty);
-		deleteStudent(newMasterStudent);
+		deleteStudent(newMasterStudent, newMasterFaculty);
 
 		masterStudent = newMasterStudent;
 		masterFaculty = newMasterFaculty;
@@ -306,7 +319,7 @@ int main() {
 
 		studentTrees.push(masterStudent);
 		facultyTrees.push(masterFaculty);
-		deleteFaculty(newMasterFaculty);
+		deleteFaculty(newMasterStudent, newMasterFaculty);
 
 		masterStudent = newMasterStudent;
 		masterFaculty = newMasterFaculty;
