@@ -38,7 +38,6 @@ void removeAdvisee(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	if(facultyTree -> get(facultyId) != NULL && studentTree -> get(adviseeId) != NULL){
 		Faculty *f = facultyTree -> get(facultyId);
 		setToZero(f, adviseeId);
-		//remove(f -> advisees, f -> advisees + f -> size, adviseeId);
 	}
 	else {
 		cout << "No faculty or student found" << endl;
@@ -88,7 +87,12 @@ void printAdvisees(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	Faculty *f = facultyTree -> get(facultyId);
 	if(f != NULL){
 		for(int i = 0; i < f->size; i++){
-			cout << studentTree -> get(f -> advisees[i]) -> toString() << endl;
+			if(f->advisees[i] != 0) {
+				cout << studentTree -> get(f -> advisees[i]) -> toString() << endl;
+			}
+			else{
+				cout << "No advisees to print" << endl;
+			}
 		}
 	}
 	else {
@@ -228,8 +232,10 @@ void deleteFaculty(BST<Student>* studentTree, BST<Faculty>* facultyTree){
 	if(facultyTree->contains(facultyId)) {
 		Faculty *f = facultyTree -> get(facultyId);
 		for(int i = 0; i < f->size; i++){
-			Student *s = studentTree -> get(f -> advisees[i]);
-			s -> advisor = 0;
+			if(f->advisees[i]!=0){
+				Student *s = studentTree -> get(f -> advisees[i]);
+				s -> advisor = 0;
+			}
 		}
 		facultyTree->deleteNode(facultyId);
 	}
@@ -249,13 +255,29 @@ void writeToFile(BST<Student>* studentTree, BST<Faculty>* facultyTree){
   facultyTree->save(outfile, facultyTree->root);
   outfile.close();
 }
+void readFromFile(BST<Student>* studentTree, BST<Faculty>* facultyTree){
+  ifstream infile;
+  infile.open ("StudentTable", ios::in | ios::binary);
+  if (infile.good()) {
+  	cout << "Loading Student" << endl;
+  	studentTree->load(infile);	
+  }
+  infile.close();
 
+  infile.open ("FacultyTable", ios::in | ios::binary);
+  if (infile.good()) {
+  	cout << "Loading Faculty" << endl;
+  	facultyTree->load(infile);
+  }
+  infile.close();
+}
+//main presents menu to the user and depending on a chosen option lets the user manipulate the database
 int main() {
 	BST<Student>* masterStudent = new BST <Student>();
 	BST<Faculty>* masterFaculty = new BST <Faculty>();
 	GenStack<BST<Student> *> studentTrees(5);
 	GenStack<BST<Faculty> *> facultyTrees(5);
-
+	readFromFile(masterStudent, masterFaculty);
 	while(true){
 	int response;
 	cout << "Choose a number from the menu: " << endl;
@@ -366,6 +388,9 @@ int main() {
 	}
 	else if(response == 14){
 		break;
+	}
+	else{
+		cout << "Input was not valid" << endl;
 	}
 	}
 	writeToFile(masterStudent, masterFaculty);

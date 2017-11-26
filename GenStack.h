@@ -33,7 +33,6 @@ GenStack<T>::GenStack(int maxSize){
 //deconstructor for GenStack that deletes objects
 template <class T>
 GenStack<T>::~GenStack() {
-	cout << "object deleted" << endl;
 	delete [] myArray; 
 }
 //push method that checks whether an array is full and adds to the stack accordingly. if full, automatically allocates more space for itself

@@ -67,7 +67,10 @@ void Faculty::save(ofstream& output) {
 	output.write(reinterpret_cast<const char*>(&department), departmentSize);
 
 	output.write(reinterpret_cast<const char*>(&size), sizeof size);
-	output.write(reinterpret_cast<const char*>(&advisees), sizeof(int)*size);
+	for(int i = 0; i < size; i++) {
+		int out = advisees[i];
+		output.write(reinterpret_cast<const char*>(&out), sizeof out);
+	}
 }
 
 void Faculty::load(ifstream& input) {
@@ -86,7 +89,12 @@ void Faculty::load(ifstream& input) {
 	input.read(reinterpret_cast<char*>(&department), departmentSize);
 
 	input.read(reinterpret_cast<char*>(&size), sizeof size);
-	input.read(reinterpret_cast<char*>(&advisees), sizeof(int)*size);
+	advisees = new int[size];
+	for(int i = 0;i < size; i++) {
+		int in = 0;
+		input.read(reinterpret_cast<char*>(&in), sizeof in);
+		advisees[i] = in;
+	}
 }
 
 

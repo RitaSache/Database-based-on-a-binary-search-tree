@@ -19,6 +19,7 @@ class BST { //implement the 3 ways of that tree, pre, post, and in order (code w
 		TreeNode<T>* copyNode(TreeNode<T> *node);
 		void eraseNode(TreeNode<T> *node);
 		void save(ofstream& output, TreeNode<T> *n);
+		void load(ifstream& input);
 		TreeNode<T> *root;
 		int count;
 };
@@ -285,6 +286,20 @@ void BST<T>::save(ofstream& output, TreeNode<T> *n){
 		n->data->save(output);
 		save(output, n->left);
 		save(output, n->right);
+	}
+}
+template <class T>
+void BST<T>::load(ifstream& input){
+	int nodeCount = 0;
+	cout << "Reading tree from file" << endl;
+	input.read(reinterpret_cast<char*>(&nodeCount), sizeof nodeCount);
+	cout << "nodeCount: " << nodeCount << endl;
+	for(int i =0; i<nodeCount; i++){
+		T *p = new T();
+		cout << "Created T:" << p << endl;
+		p->load(input);
+		cout << "Loaded T #" << p->ID << endl;
+		insert(p->ID, p);
 	}
 }
 
