@@ -1,25 +1,24 @@
 // basic file operations
-/*#include <iostream>
+#include <iostream>
 #include <fstream>
+#include "Student.h"
 using namespace std;
 
 int main () {
 
-  int x = 5;
+  Student *s = new Student(1, "plastic Bag", "junior", "math", 3.99, 2);
+  ofstream outfile;
+  outfile.open ("example.dat", ios::out | ios::binary);
+  s->save(outfile);
+  outfile.close();
 
-  ofstream myfile;
-  myfile.open ("example.dat", ios::out | ios::binary);
-  myfile.write(reinterpret_cast<const char*>(&x), sizeof x);
-  myfile.close();
-
-  int p;
-
+  Student p;
   ifstream infile;
-  infile.open("example.dat", ios::out | ios::binary);
-  infile.read(reinterpret_cast<char*>(&p), sizeof p);
+  infile.open ("example.dat", ios::in | ios::binary);
+  p.load(infile);
   infile.close();
 
-  cout << p << endl;
+  cout << p.toString() << endl;
 
   return 0;
-}*/
+}

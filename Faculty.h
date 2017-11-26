@@ -13,4 +13,6 @@ class Faculty{
 		~Faculty();
 		string toString();
 		Faculty* copy();
+		void save(ofstream& output);
+		void load(ifstream& input);
 };

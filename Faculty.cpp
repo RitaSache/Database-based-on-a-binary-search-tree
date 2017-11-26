@@ -17,7 +17,9 @@ Faculty::Faculty(int id, string Name, string Level, string Department, int array
 	}
 }
 
-Faculty::~Faculty(){}
+Faculty::~Faculty(){
+	delete[] advisees;
+}
 
 string Faculty::toString(){
 	ostringstream ss;	
@@ -46,38 +48,42 @@ Faculty* Faculty::copy(){
 	return f;
 }
 
-/*void Faculty::fillAdvisees(){
-	int id = 0;
-	for(int i = 0; i < size; i++){
-		cout << "Please provide an advisee's ID" << endl;
-		cin >> id;
+void Faculty::save(ofstream& output) {
+	output.write(reinterpret_cast<const char*>(&ID), sizeof ID);
 
-		if(id == 0) {
-			cout << "Id cannot be equal to 0" << endl;
-			i--;
-			continue;
-		}
-		if(duplicate(id)) {
-			cout << "This id already exists" << endl;
-			i--;
-			continue;
-		}
+	int nameSize = name.size();
+	output.write(reinterpret_cast<const char*>(&nameSize), sizeof nameSize);
+	output.write(reinterpret_cast<const char*>(&name), name.size());
 
-		advisees[i] = id;
-	}
+	int levelSize = level.size();
+	output.write(reinterpret_cast<const char*>(&levelSize), sizeof levelSize);
+	output.write(reinterpret_cast<const char*>(&level), level.size());
+
+	int departmentSize = department.size();
+	output.write(reinterpret_cast<const char*>(&departmentSize), sizeof departmentSize);
+	output.write(reinterpret_cast<const char*>(&department), department.size());
+
+	output.write(reinterpret_cast<const char*>(&size), sizeof size);
+	output.write(reinterpret_cast<const char*>(&advisees), (sizeof int)*size);
 }
 
-bool Faculty::duplicate(int id){
-	// duplicate 1?
-	// 1,2,3
-	// 2,2,2
-	// 2,1,3
+void Faculty::load(ifstream& input) {
+	input.read(reinterpret_cast<char*>(&ID), sizeof ID);
+	
+	int nameSize;
+	input.read(reinterpret_cast<char*>(&nameSize), sizeof nameSize);
+	input.read(reinterpret_cast<char*>(&name), nameSize);
 
-	for(int i = 0; i < size; i++){
-		if(id == advisees[i]){
-			return true;
-		}
-	}
-	return false;
+	int levelSize;
+	input.read(reinterpret_cast<char*>(&levelSize), sizeof levelSize);
+	input.read(reinterpret_cast<char*>(&level), levelSize);
+
+	int departmentSize;
+	input.read(reinterpret_cast<char*>(&departmentSize), sizeof departmentSize);
+	input.read(reinterpret_cast<char*>(&department), departmentSize);
+
+	input.read(reinterpret_cast<char*>(&size), sizeof size);
+	input.read(reinterpret_cast<char*>(&advisees), (sizeof int)*size);
 }
-*/
+
+
