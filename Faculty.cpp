@@ -2,8 +2,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <cstdlib>
 using namespace std;
+
+Faculty::Faculty(){};
 
 Faculty::Faculty(int id, string Name, string Level, string Department, int arraySize){
 	ID = id;
@@ -51,25 +54,25 @@ Faculty* Faculty::copy(){
 void Faculty::save(ofstream& output) {
 	output.write(reinterpret_cast<const char*>(&ID), sizeof ID);
 
-	int nameSize = name.size();
+	int nameSize = name.size() + 1;
 	output.write(reinterpret_cast<const char*>(&nameSize), sizeof nameSize);
-	output.write(reinterpret_cast<const char*>(&name), name.size());
+	output.write(reinterpret_cast<const char*>(&name), nameSize);
 
-	int levelSize = level.size();
+	int levelSize = level.size() + 1;
 	output.write(reinterpret_cast<const char*>(&levelSize), sizeof levelSize);
-	output.write(reinterpret_cast<const char*>(&level), level.size());
+	output.write(reinterpret_cast<const char*>(&level), levelSize);
 
-	int departmentSize = department.size();
+	int departmentSize = department.size() + 1;
 	output.write(reinterpret_cast<const char*>(&departmentSize), sizeof departmentSize);
-	output.write(reinterpret_cast<const char*>(&department), department.size());
+	output.write(reinterpret_cast<const char*>(&department), departmentSize);
 
 	output.write(reinterpret_cast<const char*>(&size), sizeof size);
-	output.write(reinterpret_cast<const char*>(&advisees), (sizeof int)*size);
+	output.write(reinterpret_cast<const char*>(&advisees), sizeof(int)*size);
 }
 
 void Faculty::load(ifstream& input) {
 	input.read(reinterpret_cast<char*>(&ID), sizeof ID);
-	
+
 	int nameSize;
 	input.read(reinterpret_cast<char*>(&nameSize), sizeof nameSize);
 	input.read(reinterpret_cast<char*>(&name), nameSize);
@@ -83,7 +86,7 @@ void Faculty::load(ifstream& input) {
 	input.read(reinterpret_cast<char*>(&department), departmentSize);
 
 	input.read(reinterpret_cast<char*>(&size), sizeof size);
-	input.read(reinterpret_cast<char*>(&advisees), (sizeof int)*size);
+	input.read(reinterpret_cast<char*>(&advisees), sizeof(int)*size);
 }
 
 

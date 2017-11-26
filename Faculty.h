@@ -10,6 +10,7 @@ class Faculty{
 		int size;
 		int *advisees;
 		Faculty(int id, string Name, string Level, string Department, int arraySize);
+		Faculty();
 		~Faculty();
 		string toString();
 		Faculty* copy();

@@ -1,24 +1,28 @@
 // basic file operations
 #include <iostream>
 #include <fstream>
-#include "Student.h"
+#include "Faculty.h"
 using namespace std;
 
 int main () {
 
-  Student *s = new Student(1, "plastic Bag", "junior", "math", 3.99, 2);
+  // Student *s = new Student(1, "plastic Bag", "junior", "math", 3.99, 2);
+  Faculty *f = new Faculty(1, "Fart Bag", "Associate", "Math", 2);
+  f->advisees[0] = 3;
+  f->advisees[1] = 4;
+
   ofstream outfile;
   outfile.open ("example.dat", ios::out | ios::binary);
-  s->save(outfile);
+  f->save(outfile);
   outfile.close();
 
-  Student p;
+  Faculty g;
   ifstream infile;
   infile.open ("example.dat", ios::in | ios::binary);
-  p.load(infile);
+  g.load(infile);
   infile.close();
 
-  cout << p.toString() << endl;
+  cout << g.toString() << endl;
 
   return 0;
 }
